@@ -22,12 +22,12 @@ device and complete payment online, and they can receive their supplies in short
 ## Installation
 
 1. **Prerequisites**: List any software, packages, or configurations needed before installation.
-    - Example: Python 3.8+
-    - Example: Django 3.0
+    - Example: Python 3.10
+    - Example: Flask 3.0.3
 
 2. **Clone the Repository**:
     ```bash
-    git clone https://github.com/yourusername/projectname.git
+    git clone https://https://github.com/MahoneyT1/Pack_n_pick.git
     ```
 
 3. **Install Dependencies**:
