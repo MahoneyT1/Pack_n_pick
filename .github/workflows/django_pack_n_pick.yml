@@ -1,0 +1,60 @@
+name: Django CI/CD
+
+on:
+  push:
+    branches: ["verify_branch"]  # Replace with your working branch name
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8, 3.9, 3.10]
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Unit and Integration Tests
+        run: |
+          python manage.py test
+
+      - name: Generate Coverage Report
+        run: |
+          pip install coverage
+          coverage run manage.py test
+          coverage report
+
+  merge-to-main:
+    needs: build  # Only runs if 'build' job is successful
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 'main'
+
+      - name: Merge verify_branch into main
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git checkout main
+          git merge verify_branch
+          
+      - name: Push changes to main
+        run: |
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
