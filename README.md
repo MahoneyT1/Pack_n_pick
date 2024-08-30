@@ -33,4 +33,12 @@ device and complete payment online, and they can receive their supplies in short
 3. **Install Dependencies**:
     ```bash
     pip install -r requirements.txt
+
+    ```
+4. **Backend modeling**:
+    **List of Database Tables**:
+    ``` Products 
+        supply
+        order
+        user
     ```
