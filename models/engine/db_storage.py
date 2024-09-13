@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """Class storage to manage storing data"""
 
-from models.basemodel import Base, BaseModel
+from models.basemodel import Base 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase
 import os
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
+
 
 
 
@@ -24,11 +25,12 @@ class DBStorage:
 
     __engine = None
     __session = None
+    Base = Base
 
-    Base = DeclarativeBase
     def __init__(self):
         """initialize the database connection"""
-
+    
+        
         connection_string = "mysql+mysqldb://{}:{}@{}:{}/{}".format(
                                                                     os.getenv('MYSQL_USERNAME'),
                                                                     os.getenv('MYSQL_PASSWORD'),
@@ -45,28 +47,29 @@ class DBStorage:
 
         self.__session = scoped_session(session_factory)
 
+    def get_engine(self):
+        return self.__engine
+
     def all(self, cls=None):
         """List all data in storage"""
+        new_dict = {}
 
-        new_list = []
+        if cls:
+            # Query all objects of a specific class
+            objs = self.__session.query(cls).all()
+            for obj in objs:
+                key = obj.__class__.__name__ + '.' + obj.id
+                new_dict[key] = obj  # Ensure object is converted to dict
+            return new_dict
+        else:
+            # Query all objects from all classes
+            for cls in self.all_class.values():  # Loop through all registered classes
+                objs = self.__session.query(cls).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj # Ensure each object is converted to dict
+            return new_dict
 
-        if cls is None:
-            for key, value in self.all_class.items():
-                result_query = self.__session.query(value).all()
-
-                for obj in result_query:
-                    new_list.append(obj.to_dict())
-
-            return new_list
-        
-        cls = self.all_class[cls]
-
-        query_result = self.__session.query(cls).all()
-        for obj in query_result:
-            new_list.append(obj.to_dict())
-
-        return new_list
-        
     def new(self, obj):
         """adds new created class into the database session"""
 
@@ -85,8 +88,23 @@ class DBStorage:
             print(f'Error while trying to commit obj in current session to database {e}')
             self.__session.rollback()
 
-    def get(self, obj):
+    def get(self, cls, id):
         """Gets obj by id"""
+        cls_extracted_obj = {}
+
+        try:
+            if isinstance(cls, str):
+                cls = self.all_class[cls]
+            
+            if cls and id:
+                cls_extracted = self.__session.query(cls).filter_by(id=id).first()
+
+                return cls_extracted
+            return None
+        except SQLAlchemyError as e:
+            print(f"Error retrieving {cls} with id {id}: {e}")
+            return None
+
     def reload(self):
         """reload save data in memory"""
 
