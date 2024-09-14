@@ -26,24 +26,21 @@ def list_of_orders():
     return response
 
 
-@app_views.route('/users/<user_id>/orders', methods=['GET'], strict_slashes=False)
-def list_users_order(user_id):
-    """lists users orders """
+@app_views.route('/orders/<order_id>', methods=['GET'], strict_slashes=False)
+def get_order(order_id):
+    """fetches a particular orders """
 
-    user = storage.get(User, user_id)
-    user_order = []
+    order = storage.get(Order, order_id)
 
-    if user is None:
-        abort(404, description='Not found')
+    if order is None:
+        abort(404, description='Order Not found')
 
-    for order in user.orders:
-        user_order.append(order.to_dict())
-
-    response = make_response(jsonify(user_order), 200)
+    response = make_response(jsonify(order.to_dict()), 200)
     return response
 
 
-@app_views.route('/users/<user_id>/orders', methods=['POST'], strict_slashes=False)
+@app_views.route('/users/<user_id>/orders',
+                 methods=['POST'], strict_slashes=False)
 def post_user_order(user_id):
     """Post user order """
 
@@ -79,4 +76,43 @@ def post_user_order(user_id):
     order_dict = new_order.to_dict()
     response = make_response(jsonify(order_dict), 201)
 
+    return response
+
+
+@app_views.route('/orders/<order_id>', methods=['DELETE'],
+                 strict_slashes=False)
+def delete_order(order_id):
+    """Deletes an order """
+
+    order_to_delete = storage.get(Order, order_id)
+    if order_to_delete is None:
+        abort(404, description='Not found')
+
+    storage.delete(order_to_delete)
+    storage.save()
+
+    response = make_response(jsonify({}), 200)
+    return response
+
+
+@app_views.route('/orders/<order_id>', methods=['PUT'], strict_slashes=False)
+def update_order(order_id):
+    """updates an order by id"""
+
+    data = request.get_json()
+    if data is None:
+        abort(400, description='Not a json')
+
+    order_to_update = storage.get(Order, order_id)
+    if order_to_update is None:
+        abort(404, description='Not found')
+
+    for key, value in data.items():
+        setattr(order_to_update, key, value)
+
+    try:
+        storage.save()
+    except Exception as e:
+        print(f'{e}')
+    response = make_response(jsonify(order_to_update.to_dict()), 200)
     return response

@@ -5,40 +5,23 @@ from models.order import Order
 from models.supply import Supply
 from models.product import Product
 from models import storage
-
-obj_cls = {
-    "user": User,
-    "order": Order,
-    "supply": Supply,
-    "product": Product
-}
-
-#new_user = User(name='ife-co', email='ifeanyitech@email.com', password='2325', address='isiala mbano')
-# new_order = Order(name='orji', paid=True, quantity=500, user_id='5d5bc521-5581-41e1-b911-35d796ddcacd')
+from models import association_supply_product
 
 
+product = Product(
+    name='garri',
+    description='ijebu ode main market',
+    stock_quantity=3,
+    price=500.3
+)
 
+suppler1 = Supply(
+    name='ignatus',
+    address='iweka road onitsha',
+    price=300
+)
 
-#storage.new(new_user)
-# storage.new(new_order)
-# storage.save()
-
-user_id = '5d5bc521-5581-41e1-b911-35d796ddcacd'
-
-all_user = storage.get(User, user_id)
-user1 = []
-
-for user in all_user.orders:
-    print(user)
-
-# for user in all_user:
-#     for order in user.orders:
-#         print(order.to_dict())
-
-
-# print(list_of_order)
-
-
-
-
-
+product.suppliers.append(suppler1)
+storage.new(product)
+storage.new(suppler1)
+storage.save()

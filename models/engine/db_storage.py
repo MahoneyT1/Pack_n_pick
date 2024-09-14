@@ -53,6 +53,7 @@ class DBStorage:
     def all(self, cls=None):
         """List all data in storage"""
         new_dict = {}
+        all_cls = []
 
         if cls:
             # Query all objects of a specific class
@@ -104,6 +105,14 @@ class DBStorage:
         except SQLAlchemyError as e:
             print(f"Error retrieving {cls} with id {id}: {e}")
             return None
+        
+    def delete(self, cls):
+        """deletes an instance from the database"""
+        try:
+            self.__session.delete(cls)
+        except SQLAlchemyError as e:
+            print({e})
+            self.__session.rollback()
 
     def reload(self):
         """reload save data in memory"""

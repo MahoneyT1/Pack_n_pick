@@ -22,7 +22,7 @@ class Product(BaseModel, Base):
                              back_populates='products')
 
     def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         if kwargs:
             for key, value in kwargs.items():
