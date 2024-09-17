@@ -8,17 +8,19 @@ from flask_migrate import Migrate
 
 
 from app.api.v1.views import app_views
-from app.PacknPick_Frontend.views.login import web_service
+from app.PacknPick_Frontend.views.login import login_view
+from app.PacknPick_Frontend.views.logout import logout_view
+from app.PacknPick_Frontend.views.homepage import home_page_view
 
 login = LoginManager()
 
 @login.user_loader
 def user_loader(user_id):
-    from models.user import User
-    from models import storage
-    from models.engine.db_storage import DBStorage
-    session = storage.__session
-    return session.query(User).filter_by(id=user_id).first()
+    from app.models.user import User
+    from app.models import storage
+    from app.models.engine.db_storage import DBStorage
+
+    return storage.get(User, user_id)
 
 def create_app():
     from app.models import storage
@@ -30,9 +32,13 @@ def create_app():
     csrf = CSRFProtect(app)
 
     login.init_app(app)
+    login.login_view = 'login'
+
     csrf.init_app(app)
     app.register_blueprint(app_views)
-    app.register_blueprint(web_service)
+    app.register_blueprint(login_view)
+    app.register_blueprint(home_page_view)
+    app.register_blueprint(logout_view)
 
     db_storage = DBStorage()
 

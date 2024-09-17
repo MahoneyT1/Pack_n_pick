@@ -6,14 +6,17 @@ from app.models import storage
 from app.models.user import User
 
 
-web_service = Blueprint('web_service', __name__,
-                        template_folder='templates',
-                        static_folder='static',url_prefix='/')
+# created a blueprint solely for login route
+login_view = Blueprint('login_view', __name__,
+                        template_folder='../templates',
+                        static_folder='../static',url_prefix='/')
 
 
-@web_service.route('/login', methods=['GET', 'POST'], strict_slashes=False)
+@login_view.route('/login', methods=['GET', 'POST'], strict_slashes=False)
 def login_route():
     """"Login route manages and renders loin template"""
+    from .homepage import home_page_view
+
 
     form = LoginForm()
 
@@ -21,13 +24,14 @@ def login_route():
         return render_template('homepage.html')
     
     if form.validate_on_submit():
-        user = storage.__session.query(User).where(User.name == form.username.data)
+        user = next((user for user in storage.all(User).values()
+                     if user.name == form.username.data), None)
 
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect(url_for('login_view.login_route'))
 
         login_user(user, remember=form.remember_me.data)
-        return redirect('home')
-    
+        return redirect(url_for('home_page_view.home'))
+
     return render_template('login.html', title='Sign in', form=form)

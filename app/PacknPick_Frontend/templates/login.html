@@ -12,7 +12,7 @@
         <p>
             {{ form.username.label }} <br>
             {{ form.username(size=32) }}<br>
-            {% for error in username.errors %}
+            {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}] </span>
             {% endfor %}
         </p>
@@ -26,6 +26,17 @@
         </p>
         <p> {{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p> {{ form.submit() }}</p>
+
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
     </form>
     
 </body>
