@@ -8,8 +8,9 @@ from app.models.user import User
 
 # created a blueprint solely for login route
 login_view = Blueprint('login_view', __name__,
+                       static_folder='static',
                         template_folder='../templates',
-                        static_folder='../static',url_prefix='/')
+                         url_prefix='/')
 
 
 @login_view.route('/login', methods=['GET', 'POST'], strict_slashes=False)

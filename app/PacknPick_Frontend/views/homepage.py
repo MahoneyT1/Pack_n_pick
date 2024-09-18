@@ -6,7 +6,7 @@ from flask import request, render_template, url_for, redirect, Blueprint
 # from app import login
 
 
-home_page_view = Blueprint('home_page_view', __name__, template_folder='../templates', static_folder='../static')
+home_page_view = Blueprint('home_page_view', __name__, static_folder='static', template_folder='../templates')
 
 @home_page_view.route('/homepage', methods=['GET'], strict_slashes=False)
 @login_required

@@ -11,6 +11,7 @@ from app.api.v1.views import app_views
 from app.PacknPick_Frontend.views.login import login_view
 from app.PacknPick_Frontend.views.logout import logout_view
 from app.PacknPick_Frontend.views.homepage import home_page_view
+from app.PacknPick_Frontend.views.registration import register_user
 
 login = LoginManager()
 
@@ -26,7 +27,7 @@ def create_app():
     from app.models import storage
     from app.models.engine.db_storage import DBStorage
 
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='PacknPick_Frontend/static')
     app.config['SECRET_KEY'] = 'you-will-never-guess'
     app.config['WTF_CSRF_ENABLED'] = False  # Disable CSRF for testing purposes
     csrf = CSRFProtect(app)
@@ -39,6 +40,7 @@ def create_app():
     app.register_blueprint(login_view)
     app.register_blueprint(home_page_view)
     app.register_blueprint(logout_view)
+    app.register_blueprint(register_user)
 
     db_storage = DBStorage()
 
