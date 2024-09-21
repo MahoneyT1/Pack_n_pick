@@ -17,10 +17,10 @@ class DBStorage:
     from app.models.order import Order
     from app.models.product import Product
     from app.models.supply import Supply
-    from app.models.user import User
+    from app.models.customers import Customer
 
     all_class = {
-        'order': Order, 'product': Product, 'supply': Supply, 'user': User
+        'order': Order, 'product': Product, 'supply': Supply, 'customer': Customer
     }
 
     __engine = None

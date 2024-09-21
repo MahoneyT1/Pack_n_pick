@@ -18,7 +18,7 @@ class Supply(BaseModel, Base):
     address = Column(String(250), nullable=False)
     price = Column(Float, nullable=False)
 
-    # one to many relationship, one supplier to have many products
+    # many to many relationship, one supplier to have many products
     products = relationship('Product', secondary=supplier_product,
                             back_populates='suppliers')
 

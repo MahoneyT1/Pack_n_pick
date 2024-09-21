@@ -17,7 +17,7 @@ login = LoginManager()
 
 @login.user_loader
 def user_loader(user_id):
-    from app.models.user import User
+    from app.models.customers import User
     from app.models import storage
     from app.models.engine.db_storage import DBStorage
 

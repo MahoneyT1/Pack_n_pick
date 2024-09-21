@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from app.models.user import User
+from app.models.customers import User
 from app.models.order import Order
 from app.models.supply import Supply
 from app.models.product import Product

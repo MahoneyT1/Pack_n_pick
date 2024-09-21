@@ -4,7 +4,7 @@ from logging.config import fileConfig
 from flask import current_app
 
 from alembic import context
-from models.basemodel import Base
+from app.models.basemodel import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -71,17 +71,45 @@ def run_migrations_offline():
         context.run_migrations()
 
 
+# def run_migrations_online():
+#     """Run migrations in 'online' mode.
+
+#     In this scenario we need to create an Engine
+#     and associate a connection with the context.
+
+#     """
+
+#     # this callback is used to prevent an auto-migration from being generated
+#     # when there are no changes to the schema
+#     # reference: http://alembic.zzzcomputing.com/en/latest/cookbook.html
+#     def process_revision_directives(context, revision, directives):
+#         if getattr(config.cmd_opts, 'autogenerate', False):
+#             script = directives[0]
+#             if script.upgrade_ops.is_empty():
+#                 directives[:] = []
+#                 logger.info('No changes in schema detected.')
+
+#     conf_args = current_app.extensions['migrate'].configure_args
+#     if conf_args.get("process_revision_directives") is None:
+#         conf_args["process_revision_directives"] = process_revision_directives
+
+#     connectable = get_engine()
+
+#     with connectable.connect() as connection:
+#         context.configure(
+#             connection=connection,
+#             target_metadata=get_metadata(),
+#             compare_type=True,  # Compare column types to detect changes
+#             **conf_args
+#         )
+
+#         with context.begin_transaction():
+#             context.run_migrations()
 def run_migrations_online():
-    """Run migrations in 'online' mode.
-
-    In this scenario we need to create an Engine
-    and associate a connection with the context.
-
-    """
+    """Run migrations in 'online' mode."""
 
     # this callback is used to prevent an auto-migration from being generated
     # when there are no changes to the schema
-    # reference: http://alembic.zzzcomputing.com/en/latest/cookbook.html
     def process_revision_directives(context, revision, directives):
         if getattr(config.cmd_opts, 'autogenerate', False):
             script = directives[0]
@@ -93,13 +121,16 @@ def run_migrations_online():
     if conf_args.get("process_revision_directives") is None:
         conf_args["process_revision_directives"] = process_revision_directives
 
+    # Ensure that compare_type is not duplicated
+    conf_args.pop('compare_type', None)  # Remove it if it's already in conf_args
+
     connectable = get_engine()
 
     with connectable.connect() as connection:
         context.configure(
             connection=connection,
             target_metadata=get_metadata(),
-            compare_type=True,  # Compare column types to detect changes
+            compare_type=True,  # Set compare_type here directly
             **conf_args
         )
 

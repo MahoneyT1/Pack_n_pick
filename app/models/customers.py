@@ -6,12 +6,13 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+# from app.models.cart import Cart
 
 
-class User(UserMixin, BaseModel, Base):
+class Customer(UserMixin, BaseModel, Base):
     """User class"""
 
-    __tablename__ = 'users'
+    __tablename__ = 'customers'
 
     id = Column(String(60),primary_key=True, unique=True, nullable=False)
     name = Column(String(60), nullable=False)
@@ -21,7 +22,12 @@ class User(UserMixin, BaseModel, Base):
 
     # relationship with order one user to many orders
     orders = relationship(
-        'Order', backref='user', cascade='all, delete-orphan')
+        'Order', backref='customer', cascade='all, delete-orphan')
+
+    products = relationship('Product', backref='customer', cascade='all, delete-orphan')
+
+    # one to one relationship with cart
+    cart_item = relationship('Cart', uselist=False, backref='customers', cascade='all, delete-orphan')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

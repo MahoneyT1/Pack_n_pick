@@ -4,9 +4,9 @@
 from app.models.basemodel import BaseModel, Base
 from sqlalchemy import Column, Integer, ForeignKey, String, Float, Boolean
 from sqlalchemy.orm import relationship
-from app.models.user import User
+from app.models.customers import Customer
 from app.models.product import Product
-
+from app.models.product_order import product_order
 
 class Order(BaseModel, Base):
     """representaton of order table"""
@@ -16,10 +16,15 @@ class Order(BaseModel, Base):
     id = Column(String(60), primary_key=True, nullable=False)
     name = Column(String(60), nullable=False)
     quantity = Column(Integer, nullable=False)
-    paid = Column(Boolean, default=False, nullable=False)
+    payment_status = Column(Boolean, default=False, nullable=False)
 
     # Many to one relationship with user. one user many orders
-    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+    customer_id = Column(String(60), ForeignKey('customers.id'), nullable=False)
+
+    # many to many relatonship with products
+    products_id = relationship('Product', secondary=product_order, back_populates='orders')
+
+
 
     def __init__(self, *args, **kwargs):
         """initialize order instances """
@@ -28,11 +33,11 @@ class Order(BaseModel, Base):
         if 'quantity' in kwargs:
             self.quantity = kwargs['quantity']
 
-        if 'paid' in kwargs:
+        if 'payment_status' in kwargs:
             self.paid = kwargs['paid']
         
-        if 'user_id' in kwargs:
-            self.user_id = kwargs['user_id']
+        if 'customer_id' in kwargs:
+            self.customer_id = kwargs['customer_id']
 
         if 'name' in kwargs:
             self.name = kwargs['name']
@@ -46,7 +51,7 @@ class Order(BaseModel, Base):
             'name': self.name,
             'paid': self.paid,
             'quantity': self.quantity,
-            'user': self.user_id
+            'customer_id': self.customer_id
         }
     
     

@@ -5,7 +5,7 @@ from app.api.v1.views import app_views
 from flask import jsonify, abort, make_response, request
 from app.models import storage
 from app.models.order import Order
-from app.models.user import User
+from app.models.customers import Customer
 from sqlalchemy.exc import SQLAlchemyError
 
 
@@ -39,20 +39,20 @@ def get_order(order_id):
     return response
 
 
-@app_views.route('/users/<user_id>/orders',
+@app_views.route('/customer/<customer_id>/orders',
                  methods=['POST'], strict_slashes=False)
-def post_user_order(user_id):
-    """Post user order """
+def post_customer_order(customer_id):
+    """Post customer order """
 
     datas = request.get_json()
 
     if datas is None:
         abort(400, description='Not a json')
 
-    # check if user exists
-    user = storage.get(User, user_id)
-    if user is None:
-        abort(404, description='User not found')
+    # check if customer exists
+    customer = storage.get(Customer, customer_id)
+    if customer is None:
+        abort(404, description='customer not found')
 
     # required attributes
     required_attr = ['name', 'quantity', 'paid']
@@ -63,7 +63,7 @@ def post_user_order(user_id):
 
     # create new order and append it to user
     new_order = Order(**datas)
-    new_order.user_id = user_id
+    new_order.user_id = customer_id
 
     # commit the transaction to database
     try:

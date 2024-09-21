@@ -1,47 +1,47 @@
 #!/usr/bin/python3
-"""user views """
+"""Customer views """
 
 from app.api.v1.views import app_views
-from app.models.user import User
+from app.models.customers import Customer
 from app.models import storage
 from flask import abort, jsonify, make_response, request
 from app.models.order import Order
 
 
-@app_views.route('/users', methods=['GET'],
+@app_views.route('/customer', methods=['GET'],
                  strict_slashes=False)
-def list_users():
-    """List users """
+def list_customer():
+    """List customer """
 
     list_of_user = []
-    users = storage.all(User)
+    customer = storage.all(Customer)
 
     if list_of_user is None:
         abort(404, description='Not found')
 
-    for values in users.values():
+    for values in customer.values():
         list_of_user.append(values.to_dict())
 
     response = make_response(jsonify(list_of_user), 200)
     return response
 
 
-@app_views.route('/users/<user_id>', methods=['GET'],
+@app_views.route('/customer/<customer_id>', methods=['GET'],
                  strict_slashes=False)
-def get_user(user_id):
+def get_user(customer_id):
     """Gets a particular user object """
 
-    user = storage.get(User, user_id)
-    if user is None:
-        abort(404, description='User Not found')
+    customer = storage.get(Customer, customer_id)
+    if customer is None:
+        abort(404, description='Customer Not found')
 
-    response = make_response(jsonify(user.to_dict()), 200)
+    response = make_response(jsonify(Customer.to_dict()), 200)
     return response
 
 
-@app_views.route('/users', methods=['POST'], strict_slashes=False)
-def create_user():
-    """creates user through api route"""
+@app_views.route('/customers', methods=['POST'], strict_slashes=False)
+def create_Customer():
+    """creates Customer through api route"""
 
     data = request.get_json()
     if data is None:
@@ -53,57 +53,59 @@ def create_user():
         if args not in data:
             abort(400, description=f'{args} is required')
 
-    new_user = User()
+    new_customer = Customer()
 
     for key, value in data.items():
         if key == 'password':
-            new_user.set_password(value)
+            new_customer.set_password(value)
             continue
-        setattr(new_user, key, value)
+        setattr(new_customer, key, value)
 
     try:
-        storage.new(new_user)
+        storage.new(new_customer)
         storage.save()
     except Exception as e:
         print(f"Error: {e}")
         abort(500, description="Error while saving\
-            user to the database")
+            customersto the database")
 
-    response = make_response(jsonify(new_user.to_dict()), 201)
+    response = make_response(jsonify(new_customer.to_dict()), 201)
     return response
 
 
-@app_views.route('/users/<user_id>/<order_id>',
+@app_views.route('/customers/<customer_id>/<order_id>',
                  methods=['GET', 'PUT'], strict_slashes=False)
-def get_user_orders(user_id, order_id):
-    """Gets aparticular user's order
-    by user_id and order_id
 
-    also updates a user and append an order to an exiciting user
-    """
+def get_customersorders(customer_id, order_id):
+    """Gets aparticular customers order
+    by customersid and order_id
+
+    also updates a customersand append an order to an exiciting customers    """
 
     if request.method == 'GET':
-        user = storage.get(User, user_id)
-        if user is None:
-            abort(400, description='User Not found')
+        customers = storage.get(Customer, customer_id)
+    
+        if customer is None:
+            abort(400, description='customer Not found')
 
-        user_order = next((u for u in user.orders
+        customer_order = next((u for u in customer.orders
                            if u.id == order_id), None)
 
-        response = make_response(jsonify(user_order.to_dict()), 200)
+        response = make_response(jsonify(customer_order.to_dict()), 200)
         return response
 
     elif request.method == 'PUT':
-        user = storage.get(User, user_id)
-        if user is None:
-            abort(400, description='User Not found')
+        customer = storage.get(Customer, customer_id)
+
+        if Customer is None:
+            abort(400, description='Customer Not found')
 
         order = storage.get(Order, order_id)
         if order is None:
             abort(404, description='Order not found')
 
-        if order not in user.orders:
-            user.orders.append(order)
+        if order not in Customer.orders:
+            Customer.orders.append(order)
             try:
                 storage.save()
             except Exception as e:
@@ -111,26 +113,26 @@ def get_user_orders(user_id, order_id):
                 abort(500, description="Error while saving\
                       changes to the database")
 
-        response = make_response(jsonify(user.to_dict()), 200)
+        response = make_response(jsonify(Customer.to_dict()), 200)
         return response
 
 
-@app_views.route('/users/<user_id>', methods=['DELETE'],
+@app_views.route('/customers/<customer_id>', methods=['DELETE'],
                  strict_slashes=False)
-def delete_user(user_id):
-    """Deletes a particular user """
+def delete_Customer(customer_id):
+    """Deletes a particular Customer """
 
-    user_to_delete = storage.get(User, user_id)
-    if user_to_delete is None:
-        abort(404, description='User not found')
+    customer_to_delete = storage.get(Customer, customer_id)
+    if customer_to_delete is None:
+        abort(404, description='Customer not found')
 
     try:
-        storage.delete(user_to_delete)
+        storage.delete(customer_to_delete)
         storage.save()
     except Exception as e:
         print(f'Error {e}')
         abort(500, description='an error occured while\
-              trying to delete the User')
+              trying to delete the Customer')
 
     response = make_response(jsonify({}), 200)
     return response
