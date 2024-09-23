@@ -105,10 +105,12 @@ device and complete payment online, and they can receive their supplies in short
     ```
 
 ### **Acknowledgments**
+    ```
     I thank my partner who has shown great strength so far even with the project been completed due to lack of power in our country, We have been able to get this far and will also complete the project after the presentation.
 
     Special thanks to Flask Mega Tutorial where i learned most of the technologies used here (Miguel Grinberg)
-
+    ```
 ### **Main Contributors**
     ```
-    - Ifeanyi kenneth Victor ([ifeanyitech15@gmail.com](mailto:ifeanyitech15@gmail.com))                                                 
+    - Ifeanyi kenneth Victor ([ifeanyitech15@gmail.com](mailto:ifeanyitech15@gmail.com)) 
+    ```                                               
