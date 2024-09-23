@@ -1,0 +1,11 @@
+<h2>Your Cart</h2>
+{% if cart %}
+    <ul>
+        {% for item in cart %}
+            <li>{{ item.product.name }} ({{ item.quantity }} x ${{ item.product.price }})</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('checkout') }}">Proceed to Checkout</a>
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}

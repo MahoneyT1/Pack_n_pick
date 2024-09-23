@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, ForeignKey, String, Float, Boolean
 from sqlalchemy.orm import relationship
 from app.models.customers import Customer
 from app.models.product import Product
-from app.models.product_order import product_order
+from app.models.product_order import productOrder
 
 class Order(BaseModel, Base):
     """representaton of order table"""
@@ -22,9 +22,7 @@ class Order(BaseModel, Base):
     customer_id = Column(String(60), ForeignKey('customers.id'), nullable=False)
 
     # many to many relatonship with products
-    products_id = relationship('Product', secondary=product_order, back_populates='orders')
-
-
+    order_products = relationship('productOrder', back_populates='order')
 
     def __init__(self, *args, **kwargs):
         """initialize order instances """
@@ -53,5 +51,3 @@ class Order(BaseModel, Base):
             'quantity': self.quantity,
             'customer_id': self.customer_id
         }
-    
-    

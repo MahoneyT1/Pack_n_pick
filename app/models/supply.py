@@ -4,7 +4,7 @@
 from app.models.basemodel import BaseModel, Base
 from sqlalchemy import Column, Integer, ForeignKey, String, Float
 from sqlalchemy.orm import relationship
-from app.models.association_supply_product import supplier_product
+from app.models.association_supply_product import supplierProduct
 
 
 class Supply(BaseModel, Base):
@@ -19,8 +19,7 @@ class Supply(BaseModel, Base):
     price = Column(Float, nullable=False)
 
     # many to many relationship, one supplier to have many products
-    products = relationship('Product', secondary=supplier_product,
-                            back_populates='suppliers')
+    supplier_products = relationship('supplierProduct', back_populates='supplier')
 
     def __init__(self, *args, **kwargs):
         """initialize new instance with attributes"""

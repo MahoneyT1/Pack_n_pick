@@ -24,10 +24,10 @@ class Customer(UserMixin, BaseModel, Base):
     orders = relationship(
         'Order', backref='customer', cascade='all, delete-orphan')
 
-    products = relationship('Product', backref='customer', cascade='all, delete-orphan')
+    products = relationship('Product', back_populates='customer', cascade='all, delete-orphan')
 
     # one to one relationship with cart
-    cart_item = relationship('Cart', uselist=False, backref='customers', cascade='all, delete-orphan')
+    cart = relationship('Cart', uselist=False, back_populates='customers', cascade='all, delete-orphan')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

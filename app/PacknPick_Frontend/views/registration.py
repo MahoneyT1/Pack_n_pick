@@ -23,7 +23,7 @@ def register_route():
 
     if form.validate_on_submit():
         customer = Customer(
-            name=form.ucustomerame.data,
+            name=form.username.data,
             email=form.email.data,
             address=form.address.data
         )

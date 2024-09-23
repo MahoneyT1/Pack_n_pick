@@ -13,14 +13,20 @@ from sqlalchemy.exc import SQLAlchemyError
 
 class DBStorage:
     """Class storage representation """
-    from app.models.association_supply_product import supplier_product
+    from app.models.association_supply_product import supplierProduct
     from app.models.order import Order
     from app.models.product import Product
     from app.models.supply import Supply
     from app.models.customers import Customer
+    from app.models.cart_product import cartProduct
+    from app.models.product_order import productOrder
+    from app.models.cart import Cart
 
     all_class = {
-        'order': Order, 'product': Product, 'supply': Supply, 'customer': Customer
+        'order': Order, 'product': Product, 'supply': Supply,
+        'customer': Customer, 'supplier_product': supplierProduct,
+        'cart_product': cartProduct, 'product_order': productOrder,
+        'cart': Cart
     }
 
     __engine = None

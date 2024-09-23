@@ -12,22 +12,23 @@ from app.PacknPick_Frontend.views.login import login_view
 from app.PacknPick_Frontend.views.logout import logout_view
 from app.PacknPick_Frontend.views.homepage import home_page_view
 from app.PacknPick_Frontend.views.registration import register_user
-
+from app.PacknPick_Frontend.views.add_to_cart import views
+from app.PacknPick_Frontend.routes.admin import admin
 login = LoginManager()
 
 @login.user_loader
-def user_loader(user_id):
-    from app.models.customers import User
+def user_loader(customer_id):
+    from app.models.customers import Customer
     from app.models import storage
     from app.models.engine.db_storage import DBStorage
 
-    return storage.get(User, user_id)
+    return storage.get(Customer, customer_id)
 
 def create_app():
     from app.models import storage
     from app.models.engine.db_storage import DBStorage
 
-    app = Flask(__name__, static_folder='PacknPick_Frontend/static')
+    app = Flask(__name__, static_folder='PacknPick_Frontend/static', template_folder='PacknPick_Frontend/templates')
     app.config['SECRET_KEY'] = 'you-will-never-guess'
     app.config['WTF_CSRF_ENABLED'] = False  # Disable CSRF for testing purposes
     csrf = CSRFProtect(app)
@@ -41,6 +42,8 @@ def create_app():
     app.register_blueprint(home_page_view)
     app.register_blueprint(logout_view)
     app.register_blueprint(register_user)
+    app.register_blueprint(views)
+    app.register_blueprint(admin)
 
     db_storage = DBStorage()
 

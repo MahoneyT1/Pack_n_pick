@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product to Cart</title>
+    <style>
+        table {
+            width: 50%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        th, td {
+            text-align: left;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cart Form</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Input</th>
+            </tr>
+            <tr>
+                <td>{{ form.product_id.label }}</td>
+                <td>{{ form.product_id(size=60) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.quantity.label }}</td>
+                <td>{{ form.quantity(size=60) }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    {{ form.submit() }}
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
