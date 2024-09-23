@@ -53,13 +53,13 @@ device and complete payment online, and they can receive their supplies in short
    flask run
    ```
 
-2. ## Features
+2.  ## **Features**
     ``` User authentication (Login/Signup)
     - Create, update, delete, and view tasks
     - search and filter products
     ```
 
-## Usage
+3.  ## ** Usage**
     - After installation, open your browser and navigate to:
     http://localhost:5000
 
@@ -85,32 +85,32 @@ device and complete payment online, and they can receive their supplies in short
     PUT /orders/<order_id> updates orders
     DELETE /orders/<order_id> deletes order
 
-## Configuration
-    FLASK_APP:app.api.v1.app Entry point
-    DATABASE_URL: connection_string = f"mysql+mysqldb://{MYSQL_USERNAME}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}"
-                  mysql database isn't deployed online yet, you can create a database locally for testing purposes
+    ## Configuration
+        FLASK_APP:app.api.v1.app Entry point
+        DATABASE_URL: connection_string = f"mysql+mysqldb://{MYSQL_USERNAME}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}"
+                    mysql database isn't deployed online yet, you can create a database locally for testing purposes
 
-    SECRET_KEY: you-will-never-guess
+        SECRET_KEY: you-will-never-guess
 
-### **Technologies Used**
-    ```
-    - Flask
-    - SQLALchemy
-    - Jinja2
-    - Mysql
-    - Flask-login
-    - Flask-wtf
-    - Flask-migrate
-    - email valiator
-    ```
+    ### **Technologies Used**
+        ```
+        - Flask
+        - SQLALchemy
+        - Jinja2
+        - Mysql
+        - Flask-login
+        - Flask-wtf
+        - Flask-migrate
+        - email valiator
+        ```
 
-### **Acknowledgments**
-    ```
-    I thank my partner who has shown great strength so far even with the project been completed due to lack of power in our country, We have been able to get this far and will also complete the project after the presentation.
+    ### **Acknowledgments**
+        ```
+        I thank my partner who has shown great strength so far even with the project been completed due to lack of power in our country, We have been able to get this far and will also complete the project after the presentation.
 
-    Special thanks to Flask Mega Tutorial where i learned most of the technologies used here (Miguel Grinberg)
-    ```
-### **Main Contributors**
-    ```
-    - Ifeanyi kenneth Victor ([ifeanyitech15@gmail.com](mailto:ifeanyitech15@gmail.com)) 
+        Special thanks to Flask Mega Tutorial where i learned most of the technologies used here (Miguel Grinberg)
+        ```
+    ### **Main Contributors**
+        ```
+        - Ifeanyi kenneth Victor ([ifeanyitech15@gmail.com](mailto:ifeanyitech15@gmail.com)) 
     ```                                               
