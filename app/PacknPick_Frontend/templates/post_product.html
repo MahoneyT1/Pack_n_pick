@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>post product</title>
+</head>
+<body>
+    <h1>Post product</h1>
+    {{ form.hidden_tag() }}
+    <form action="" method="post">
+        <p>
+            {{ form.name.label }}
+            {{ form.name(size=60) }}
+            {% for error in form.errors %}
+            <span style="color: red;"[{{ error }}]></span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.description.label }} <br>
+            {{ form.description(size=100) }}
+            {% for error in form.errors %}
+            <span style="color: red;"[{{ error }}]></span>
+            {% endfor%}
+
+        </p>
+        <p>
+            {{ form.price.label }}
+            {{ form.price(size=30) }}
+            {% for error in form.errors %}
+            <span style="color: red;"[{{ error }}]></span>
+            {% endfor%}
+        </p>
+        <p>
+            {{ form.stock_quantity.label }} <br>
+            {{ form.stock_quantity(size=30) }}<br>
+            {% for error in form.errors %}
+            <span style="color: red;"[{{ error }}]></span>
+            {% endfor%}
+        </p>
+
+        <p>   {{ form.submit() }} </p>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>
+                {{ message }}
+            </li>
+            {% endfor%}
+        </ul>
+        {% endif %}
+        {% endwith%}
+    </form>
+ 
+</body>
+</html>

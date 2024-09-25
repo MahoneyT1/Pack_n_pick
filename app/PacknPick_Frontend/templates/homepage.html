@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pack'n'Pick Fresh Food Mart</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+	<div class="header">
+	<div class="container">
+		<div class="navbar">
+			<div class="logo">
+				<img src=" {{ url_for('static', filename='images/PacknPick.png') }}" width="200px">
+			</div>
+			<nav>
+				<ul>
+					<li><a href="">All categories</a></li>
+					<li><a href="">Get standard price</a></li>
+					<li><a href="">Be a partner</a></li>
+					<li><a href="">FAQs</a></li>
+					<li><a href="">Help Center</a></li>
+					<li><a href="">Blog</a></li>
+					<li><a href="" class="account">Sign up</a></li>	
+				</ul>
+			</nav>
+			
+			<a href="{{ url_for('login_view.login_route')}}" class="login">
+				<img src="{{ url_for('static', filename='images/person.png') }}" width="40px" height="40px"></a>
+			<a href="" class="cart">
+				<img src="{{ url_for('static', filename='images/Cart.png') }}" width="45px" height="40px">
+			</a>
+		</div>
+		<div class="row">
+			<div class="col-2">
+				<h1>Transforming the<br>Food Value Chain<br>in Africa with<br>Digital Technology</h1>
+				<p>Save Time, Money, and Energy!</p>
+				<p>Shop Fresh and Nutritious Food Items on Pack'n'Pick,<br>with the 'Tap of a Button' and get your orders delivered,<br>as and when REQUIRED.</p>
+				<a href="" class="start">Start Here &#8594;</a>
+			</div>
+			<div class="col-2">
+				<img src="{{ url_for('static', filename='images/Food hub.png') }}">
+			</div>
+		</div>
+		<div class="search-box">
+			<p>Get the prevailing price of food items in Markets around you</p>
+			<div class="row-2">
+				<a href="" class="state">State</a>
+				<a href="" class="city">City</a>
+				<form action="" class="search-container">
+					<input type="text" placeholder="Find price of food items" name="q">
+					<button type="submit"><img src="{{ url_for('static', filename='images/myicon.png') }}"></button>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	
+<!------------ featured categories -------------------->
+	<div class="categories">
+		<div class="small-container">
+			<div class="row">
+			<div class="col-3">
+				<img src="{{ url_for('static', filename='images/Maize.jpg') }}">
+			</div>
+			<div class="col-3">
+				<img src="{{ url_for('static', filename='images/Fresh fruits.png') }}">
+			</div>
+			<div class="col-3">
+				<img src="{{ url_for('static', filename='images/Vegetables.jpg') }}">
+			</div>
+		</div>
+		</div>			
+	</div>
+	</div>
+<!-------- featured products ----------------->
+	<div class="small-container">
+		<h2 class="feature-title">Featured Food Items</h2>
+		<div class="row">
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/Tatase.jpg') }}">
+				<h4>Tatase (Bell Pepper)</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+				<p>#2000.00 per kg</p>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/onion.jpg') }}">
+				<h4>Onions</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+				<p>#800.00 per kg</p>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/Cocoyam.jpg') }}">
+				<h4>Cocoyam</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star-half-o"></i>
+				</div>
+				<p>#1500.00 per kg</p>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/sweet potatoes.jpg') }}">
+				<h4>Sweet Potatoes (Purple)</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+				<p>#1300.00 per kg</p>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/beans.jpg') }}">
+				<h4>Oloyin Beans (Honey sweet)</h4>
+				<p>#8000.00 per paint plastic</p>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/Rice.jpeg') }}">
+				<h4>Rice (Stone Free)</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star-o"></i>
+				</div>
+				<p>#6000.00 per paint plastic</p>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/Yellow garri.jpeg') }}">
+				<h4>Yellow Garri</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+				<p>#3000.00 per paint plastic</p>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/brocolli.jpg') }}">
+				<h4>Brocolli</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+				<p>#1300.00 per kg</p>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/irish potatoes.jpg') }}">
+				<h4>Irish Potatooes</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+				<p>#2000.00 per kg</p>
+			</div>
+				<div class="col-4">
+				<img src="{{ url_for('static', filename='images/yam.jpeg') }}">
+				<h4>Yam (Efuru)</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+				<p>#1500.00 per kg</p>
+			</div>
+				<div class="col-4">
+				<img src="{{ url_for('static', filename='images/carrot.jpg') }}">
+				<h4>Carrot</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+				<p>#2200.00 per kg</p>
+			</div>
+				<div class="col-4">
+				<img src="{{ url_for('static', filename='images/cabage.jpg') }}">
+				<h4>Fresh Cabbage</h4>
+				<div class="rating">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				</div>
+				<p>#2000.00 per kg</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

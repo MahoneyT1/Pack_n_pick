@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: radial-gradient(#D6F5F5,#99FFCC);
+}
+
+.wrapper {
+	width: 420px;
+	background: palevioletred;
+	border: 2px solid rgba(225, 225, 225, 0.2);
+	backdrop-filter: blur(20px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	color: #e6eeff;
+	border-radius: 10px;
+	padding: 30px 40px;
+}
+
+.wrapper .logo {
+	display: inline-flex;
+	justify-items: center;
+	padding-left: 90px;
+	align-item: center;
+}
+
+.wrapper h1 {
+	font-size: 36px;
+	text-align: center;
+}
+
+.wrapper .input-box {
+	position: relative;
+	width: 100%;
+	height: 50px;
+	margin: 30px 0;
+}
+
+.input-box input {
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	border: none;
+	outline: none;
+	border: 2px solid rgba(225, 225, 225, 0.2);
+	border-radius: 40px;
+	font-size: 14px;
+	color: #e6eeff;
+	padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+	color: #e6eeff;
+}
+
+.input-box i {
+	color: #adc2eb;
+	position: absolute;
+	right: 20px;
+	top: 25px;
+	transform: translateY(-50%);
+	font-size: 20px;
+}
+
+.wrapper .remember-forgot {
+	display: flex;
+	justify-content: space-between;
+	font-size: 14px;
+	margin: -15px 5px 15px;
+}
+
+.remember-forgot label input {
+	accent-color: #e6eeff;
+	margin-right: 3px;
+}
+
+.remember-forgot a {
+	color: #e6eeff;
+	text-decoration: none;
+}
+
+.remember-forgot a:hover {
+	text-decoration: underline;
+}
+
+.wrapper .btn {
+	width: 100%;
+	height: 40px;
+	background: #e6eeff;
+	border: none;
+	outline: none;
+	position: center;
+	border-radius: 40px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	font-size: 16px;
+	color: e6eeff;
+	font-weight: 600;
+}
+
+.wrapper .register-link {
+	font-size: 14px;
+	text-align: center;
+	margin-top: 20px;
+	line-height: 30px;
+}
+
+.register-link p a {
+	color: #e6eeff;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.register-link p a:hover {
+	text-decoration: underline;
+}
+
+.col-2 {
+	min-width: 300px;
+	flex-basis: 50%;
+}
+
+.col-2 img{
+	max-width: 80%;
+	padding: 50px 0;
+	margin-left: 120px;
+	border: none;
+	outline: none;
+}
