@@ -22,7 +22,7 @@ class Customer(UserMixin, BaseModel, Base):
 
     # relationship with order one user to many orders
     orders = relationship(
-        'Order', backref='customer', cascade='all, delete-orphan')
+        'Order', back_populates='customer', cascade='all, delete-orphan')
 
     products = relationship('Product', back_populates='customer', cascade='all, delete-orphan')
 

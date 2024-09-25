@@ -6,8 +6,8 @@ from app.models.basemodel import BaseModel, Base
 from sqlalchemy import Column, Integer, ForeignKey, String, Float
 from sqlalchemy.orm import relationship
 from app.models.association_supply_product import supplierProduct
-from app.models.product_order import productOrder
-from app.models.cart_product import cartProduct
+from app.models.product_order import ProductOrder
+from app.models.cart_product import CartProduct
 from app.models.cart import Cart
 
 class Product(BaseModel, Base):
@@ -29,10 +29,10 @@ class Product(BaseModel, Base):
     product_suppliers = relationship('supplierProduct', back_populates='product')
     
     # Many-to-many relationship with order
-    product_orders = relationship('productOrder', back_populates='product')
+    product_orders = relationship('ProductOrder', back_populates='product')
 
     # Many-to-many relationship with cart
-    product_carts = relationship('cartProduct', back_populates='product')
+    product_carts = relationship('CartProduct', back_populates='product')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

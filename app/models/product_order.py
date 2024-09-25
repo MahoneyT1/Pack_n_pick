@@ -6,7 +6,7 @@ from app.models.basemodel import Base
 from sqlalchemy.orm import relationship
 
 
-class productOrder(Base):
+class ProductOrder(Base):
     """Association class with Product and Order"""
     
     __tablename__ = 'product_orders'
@@ -15,4 +15,4 @@ class productOrder(Base):
     order_id = Column(String(60), ForeignKey('orders.id'), primary_key=True)
 
     product = relationship('Product', back_populates='product_orders')
-    order = relationship('Order', back_populates='order_products')
+    orders = relationship('Order', back_populates='order_products')

@@ -4,12 +4,12 @@
 from flask import Blueprint, flash, redirect, url_for,render_template
 #from app import login
 from flask_login import login_required, current_user
-from app.models.form import AddProductForm
+from app.models.forms.form import AddProductForm
 from app.models.customers import Customer
 from app.models import storage
 from app.models.cart import Cart
 from app.models.product import Product
-from app.models.cart_product import cartProduct
+from app.models.cart_product import CartProduct
 
 
 views = Blueprint('views', __name__, static_folder='../static', template_folder='../templates')
@@ -21,10 +21,9 @@ def addToCart():
     """adds producs to cart"""
 
     form = AddProductForm()
-    customer_id = current_user.id 
+    customer_id = current_user.id
 
     if form.validate_on_submit():
-        print(f"Product ID: {form.product_id.data}, Quantity: {form.quantity.data}")
         product_id = form.product_id.data
         quantity = int(form.quantity.data)
 
@@ -38,26 +37,33 @@ def addToCart():
         
         cart = customer.cart
         if cart is None:
-            cart = Cart(customer_id=customer_id)
+            print(customer_id, "this is customer id **************")
+            cart = Cart(customer_id=customer.id, quantity=quantity)
             storage.new(cart)
+            storage.save()
 
         # find the product to add to cart
         product = storage.get(Product, product_id)
         if product is None:
             flash("product not found")
-            return redirect(url_for('home_page_view.home'))
-        
-        cart_product = storage.__session.query(cartProduct).filter_by(cart_id=cart.id, product_id=product.id).first()
+            return redirect(url_for('views.addToCart'))
+
+        session = storage.get_session()
+
+        cart_product = session.query(CartProduct).filter_by(cart_id=cart.id,
+                                                                      product_id=product.id,
+                                                                      quantity=quantity).first()
+        print(cart_product)
 
         if cart_product:
             cart_product.quantity += quantity
         else:
-            new_cart_product = cartProduct(cart_id=cart.id, product_id=product.id, quantity=int(quantity))
+            new_cart_product = CartProduct(cart_id=cart.id, product_id=product.id, quantity=int(quantity))
 
             storage.new(new_cart_product)
-
-        storage.save()
-        return redirect(url_for('home_page_view.home'))
+            storage.save()
+            flash('successfully added to cart')
+        return redirect(url_for('views.addToCart'))
     
     return render_template('add_productcart.html', form=form)
 
@@ -74,6 +80,6 @@ def view_carts():
 
     cart = customer.cart_item
 
-    cart_item = storage.get(cartProduct, cart.id)
+    cart_item = storage.get(CartProduct, cart.id)
     return render_template('cart.html', cart=cart_item)
     

@@ -1,21 +1,54 @@
+ <!-- <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ </head>
+ <body>
+    <H1>
+        {{ form.hidden_tag() }}  
+    </H1>
+    <table>
+        <form action="" method="post">
+            <thead>
+                <tr>
+                    <th scope="col">{{ form.product_id.label }}</th>
+                    <th scope="col">{{ form.product_id(size=60) }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> {{ form.quantity.label }}</td>
+                    <td> {{ form.quantity(size=10) }}</td>
+                </tr>
+            </tbody>
+            <p> {{ form.submit() }}</p>
+        </form>
+    </table>
+
+ </body>
+ </html>   -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product to Cart</title>
+    <title>Update Product</title>
     <style>
         table {
-            width: 50%;
-            margin: auto;
             border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-            padding: 10px;
+            width: 50%;
+            margin: 20px auto;
         }
         th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
             text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
         }
         h1 {
             text-align: center;
@@ -23,28 +56,40 @@
     </style>
 </head>
 <body>
-    <h1>Cart Form</h1>
+
+    <h1>Update Product</h1>
+    
     <form action="" method="post">
-        {{ form.hidden_tag() }}
+        {{ form.hidden_tag() }} <!-- CSRF token inside the form -->
         <table>
-            <tr>
-                <th>Field</th>
-                <th>Input</th>
-            </tr>
-            <tr>
-                <td>{{ form.product_id.label }}</td>
-                <td>{{ form.product_id(size=60) }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.quantity.label }}</td>
-                <td>{{ form.quantity(size=60) }}</td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: center;">
-                    {{ form.submit() }}
-                </td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>{{ form.product_id.label }}</th>
+                    <td>{{ form.product_id(size=60) }}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>{{ form.quantity.label }}</th>
+                    <td>{{ form.quantity(size=10) }}</td>
+                </tr>
+            </tbody>
         </table>
+        <div style="text-align: center;">
+            {{ form.submit() }}
+        </div>
     </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>
+            {{ message}}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
 </body>
 </html>

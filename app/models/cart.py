@@ -3,7 +3,7 @@
 
 from sqlalchemy import Integer, String, Column, ForeignKey
 from sqlalchemy.orm import relationship
-from app.models.cart_product import cartProduct
+from app.models.cart_product import CartProduct
 from app.models.basemodel import Base, BaseModel
 
 
@@ -22,11 +22,14 @@ class Cart(BaseModel, Base):
     customers = relationship('Customer', back_populates='cart')
 
     # many to many relationship with product
-    cart_products = relationship('cartProduct', back_populates='cart')
+    cart_products = relationship('CartProduct', back_populates='cart')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         if 'quantity' in kwargs:
             self.quantity = kwargs['quantity']
+
+        if 'customer_id' in kwargs:
+            self.customer_id = kwargs['customer_id']
 

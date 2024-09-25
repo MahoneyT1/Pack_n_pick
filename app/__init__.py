@@ -8,11 +8,11 @@ from flask_migrate import Migrate
 
 
 from app.api.v1.views import app_views
-from app.PacknPick_Frontend.views.login import login_view
-from app.PacknPick_Frontend.views.logout import logout_view
-from app.PacknPick_Frontend.views.homepage import home_page_view
-from app.PacknPick_Frontend.views.registration import register_user
-from app.PacknPick_Frontend.views.add_to_cart import views
+from app.PacknPick_Frontend.routes.login import login_view
+from app.PacknPick_Frontend.routes.logout import logout_view
+from app.PacknPick_Frontend.routes.homepage import home_page_view
+from app.PacknPick_Frontend.routes.registration import register_user
+from app.PacknPick_Frontend.routes.add_to_cart import views
 from app.PacknPick_Frontend.routes.admin import admin
 login = LoginManager()
 

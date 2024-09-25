@@ -6,7 +6,7 @@ from app.models.basemodel import Base
 from sqlalchemy.orm import relationship
 
 
-class cartProduct(Base):
+class CartProduct(Base):
     """relationship of cart and product"""
 
     __tablename__ = 'cart_products'

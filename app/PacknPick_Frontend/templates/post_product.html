@@ -8,30 +8,52 @@
 <body>
     <h1>Post product</h1>
     {{ form.hidden_tag() }}
-    <div>
-        <table>
-            <tr>
-                <th>name </th>
-                <th>price</th>
-                <th>description</th>
-                <th>stock_quantity</th>
-            </tr>
-            <tr>
-                <td> {{ form.name.label }}</td><br>
-                <td> {{ form.name(size=60) }}</td> <br>
+    <form action="" method="post">
+        <p>
+            {{ form.name.label }}
+            {{ form.name(size=60) }}
+            {% for error in form.errors %}
+            <span style="color: red;"[{{ error }}]></span>
+            {% endfor %}
+        </p>
 
-                <td> {{ form.price.label }}</td><br>
-                <td> {{ form.price(size=30) }}</td> <br>
+        <p>
+            {{ form.description.label }} <br>
+            {{ form.description(size=100) }}
+            {% for error in form.errors %}
+            <span style="color: red;"[{{ error }}]></span>
+            {% endfor%}
 
-                <td> {{ form.description.label }}</td><br>
-                <td> {{ form.description(size=100) }}</td> <br>
+        </p>
+        <p>
+            {{ form.price.label }}
+            {{ form.price(size=30) }}
+            {% for error in form.errors %}
+            <span style="color: red;"[{{ error }}]></span>
+            {% endfor%}
+        </p>
+        <p>
+            {{ form.stock_quantity.label }} <br>
+            {{ form.stock_quantity(size=30) }}<br>
+            {% for error in form.errors %}
+            <span style="color: red;"[{{ error }}]></span>
+            {% endfor%}
+        </p>
 
-                <td> {{ form.stock_quantity.label }}</td><br>
-                <td> {{ form.stock_quantity(size=30) }}</td> <br>
-            </tr>
-        </table>
-        {{ form.submit() }}
-    </div>
-    
+        <p>   {{ form.submit() }} </p>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>
+                {{ message }}
+            </li>
+            {% endfor%}
+        </ul>
+        {% endif %}
+        {% endwith%}
+    </form>
+ 
 </body>
 </html>

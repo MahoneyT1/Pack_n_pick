@@ -18,14 +18,14 @@ class DBStorage:
     from app.models.product import Product
     from app.models.supply import Supply
     from app.models.customers import Customer
-    from app.models.cart_product import cartProduct
-    from app.models.product_order import productOrder
+    from app.models.cart_product import CartProduct
+    from app.models.product_order import ProductOrder
     from app.models.cart import Cart
 
     all_class = {
         'order': Order, 'product': Product, 'supply': Supply,
         'customer': Customer, 'supplier_product': supplierProduct,
-        'cart_product': cartProduct, 'product_order': productOrder,
+        'cart_product': CartProduct, 'product_order': ProductOrder,
         'cart': Cart
     }
 
@@ -55,6 +55,9 @@ class DBStorage:
 
     def get_engine(self):
         return self.__engine
+
+    def get_session(self):
+        return self.__session()
 
     def all(self, cls=None):
         """List all data in storage"""
